@@ -10,8 +10,6 @@ services:
       - auth_db
     env_file:
       - auth_prod.env
-    ports:
-      - "8000:80"
 
   auth_db:
     container_name: auth_db
@@ -22,23 +20,25 @@ services:
     env_file:
       - auth_prod_db.env
   
-#  user:
-#    image: mess-user-service
-#    restart: always
-#    container_name: mess_user
-#    hostname: mess-user
-#    depends_on:
-#      - user_db
-#
-#  user_db:
-#    container_name: user_db
-#    image: postgres:16
-#    restart: always
-#    environment:
-#      POSTGRES_DB: mess_user
-#    volumes:
-#      - user_db:/var/lib/postgresql/data
-#
+  user:
+    image: mess_user_service:0.1.0
+    restart: always
+    container_name: mess_user
+    hostname: mess_user
+    depends_on:
+      - user_db
+    env_file:
+      - user_prod.env
+
+  user_db:
+    container_name: user_db
+    image: postgres:16
+    restart: always
+    volumes:
+      - user_db:/var/lib/postgresql/data
+    env_file:
+      - user_prod_db.env
+
 #  message:
 #    image: mess-message-service
 #    restart: always
@@ -69,3 +69,4 @@ services:
 
 volumes:
   auth_db:
+  user_db:
