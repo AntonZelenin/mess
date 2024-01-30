@@ -78,7 +78,9 @@ services:
       - message_prod_db.env
 
   kong:
-    image: "${KONG_DOCKER_TAG:-kong:latest}"
+    build:
+      context: .
+      dockerfile: Kong.Dockerfile
     container_name: kong
     user: "${KONG_USER:-kong}"
     environment:
