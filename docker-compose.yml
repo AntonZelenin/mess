@@ -34,6 +34,8 @@ services:
     restart: always
     container_name: user
     hostname: user
+    networks:
+      - mess-net
     depends_on:
       - user_db
     env_file:
@@ -68,6 +70,8 @@ services:
     restart: always
     container_name: message_db
     hostname: message_db
+    networks:
+      - mess-net
     volumes:
       - message_db:/var/lib/postgresql/data
     env_file:

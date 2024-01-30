@@ -1,4 +1,3 @@
-# a very minimal declarative config file
 _format_version: "3.0"
 _transform: true
 
@@ -6,22 +5,26 @@ services:
   - name: user-service
     url: http://user
     routes:
-      - name: register-new-user
-        paths:
-          - /api/user/v1/users
-        strip_path: false
       - name: get-users
         paths:
           - /api/user/v1/users
+        methods:
+          - GET
         strip_path: false
 
-  - name: auth-service
+  - name: user-service-public
+    url: http://user
+    routes:
+      - name: register-new-user
+        paths:
+          - /api/user/v1/users
+        methods:
+          - POST
+        strip_path: false
+
+  - name: login-service
     url: http://auth
     routes:
-      - name: authenticate-user
-        paths:
-          - /api/auth/v1/authenticate
-        strip_path: false
       - name: refresh-token
         paths:
           - /api/auth/v1/refresh-token
@@ -46,3 +49,28 @@ services:
         paths:
           - /api/message/v1/messages
         strip_path: false
+
+plugins:
+  - name: jwt
+    service: user-service
+    enabled: true
+    config:
+      key_claim_name: kid
+      claims_to_verify:
+        - exp
+
+  - name: jwt
+    service: message-service
+    enabled: true
+    config:
+      key_claim_name: kid
+      claims_to_verify:
+        - exp
+
+consumers:
+  - username: login_server
+
+jwt_secrets:
+  - consumer: login_server
+    secret: ""
+    key: ""
