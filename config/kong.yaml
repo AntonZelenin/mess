@@ -1,3 +1,48 @@
 # a very minimal declarative config file
-_format_version: "2.1"
+_format_version: "3.0"
 _transform: true
+
+services:
+  - name: user-service
+    url: http://user
+    routes:
+      - name: register-new-user
+        paths:
+          - /api/user/v1/users
+        strip_path: false
+      - name: get-users
+        paths:
+          - /api/user/v1/users
+        strip_path: false
+
+  - name: auth-service
+    url: http://auth
+    routes:
+      - name: authenticate-user
+        paths:
+          - /api/auth/v1/authenticate
+        strip_path: false
+      - name: refresh-token
+        paths:
+          - /api/auth/v1/refresh-token
+        strip_path: false
+      - name: login
+        paths:
+          - /api/auth/v1/login
+        strip_path: false
+      - name: create-user
+        paths:
+          - /api/auth/v1/users
+        strip_path: false
+
+  - name: message-service
+    url: http://message
+    routes:
+      - name: send-message
+        paths:
+          - /api/message/v1/messages
+        strip_path: false
+      - name: get-messages
+        paths:
+          - /api/message/v1/messages
+        strip_path: false
