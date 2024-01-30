@@ -37,14 +37,21 @@ services:
   - name: message-service
     url: http://message
     routes:
-      - name: send-message
-        paths:
-          - /api/message/v1/messages
-        strip_path: false
       - name: get-messages
         paths:
           - /api/message/v1/messages
         strip_path: false
+
+  - name: ws-message-service
+    url: ws://message
+    routes:
+      - name: ws-send-message
+        paths:
+          - /ws/message/v1/messages
+        strip_path: false
+        protocols:
+          - http
+          - https
 
 plugins:
   - name: jwt
@@ -63,6 +70,14 @@ plugins:
       claims_to_verify:
         - exp
 
+  - name: jwt
+    service: ws-message-service
+    enabled: true
+    config:
+      key_claim_name: kid
+      claims_to_verify:
+        - exp
+
   - name: jwt-claims-headers
     service: user-service
     enabled: true
@@ -72,6 +87,13 @@ plugins:
 
   - name: jwt-claims-headers
     service: message-service
+    enabled: true
+    config:
+      claims_to_include:
+        - sub
+
+  - name: jwt-claims-headers
+    service: ws-message-service
     enabled: true
     config:
       claims_to_include:
