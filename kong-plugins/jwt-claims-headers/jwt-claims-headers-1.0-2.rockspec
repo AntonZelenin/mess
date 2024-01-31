@@ -1,4 +1,4 @@
-package = "kong-plugin-jwt-claims-headers"
+package = "jwt-claims-headers"
 version = "1.0-2"
 source = {
   url = "TBD"

@@ -3,9 +3,9 @@ FROM kong/kong-gateway:3.5
 USER root
 
 # Add custom plugin to the image
-COPY kong-plugins/kong-plugin-jwt-claims-headers kong-plugin-jwt-claims-headers
+COPY kong-plugins/jwt-claims-headers jwt-claims-headers
 ENV KONG_PLUGINS=bundled,jwt-claims-headers
-RUN cd kong-plugin-jwt-claims-headers && luarocks make
+RUN cd jwt-claims-headers && luarocks make
 
 USER kong
 
