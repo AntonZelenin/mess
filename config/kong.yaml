@@ -48,6 +48,12 @@ services:
         protocols:
           - http
           - https
+      - name: create-chat
+        paths:
+          - /api/message/v1/chats
+        methods:
+          - POST
+        strip_path: false
 
   - name: ws-message-service
     url: ws://message
