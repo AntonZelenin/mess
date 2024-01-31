@@ -112,5 +112,5 @@ consumers:
 
 jwt_secrets:
   - consumer: login_server
-    secret: "8decbc6eec66070f91ea591bb1d95ab33aa9050a88607c0e9270dca789f1a33b"
-    key: "ea4602961ce76404510e2f2b6a3321bb5bf562cf2d6623e7e9b580411c03bc6d"
+    secret: ""
+    key: ""
