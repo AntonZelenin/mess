@@ -53,6 +53,7 @@ services:
           - /api/message/v1/chats
         methods:
           - POST
+          - GET
         strip_path: false
 
   - name: ws-message-service
