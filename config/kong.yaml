@@ -105,6 +105,7 @@ plugins:
     config:
       claims_to_include:
         - sub
+        - username
 
 #  - name: request-transformer
 #    service: user-service

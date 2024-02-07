@@ -1,5 +1,5 @@
 return {
-  name = "jwt-claims-headers",  -- Replace with your actual plugin name
+  name = "jwt-claims-headers",
   fields = {
     { config = {
         type = "record",
