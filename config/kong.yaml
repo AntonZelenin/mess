@@ -11,6 +11,12 @@ services:
         methods:
           - GET
         strip_path: false
+      - name: get-users-by-ids
+        paths:
+          - /api/user/v1/users/batch-query
+        methods:
+          - POST
+        strip_path: false
 
   - name: user-service-public
     url: http://user
@@ -97,14 +103,15 @@ plugins:
     enabled: true
     config:
       claims_to_include:
-        - sub
+        - user-id
+        - username
 
   - name: jwt-claims-headers
     service: message-service
     enabled: true
     config:
       claims_to_include:
-        - sub
+        - user-id
         - username
 
 #  - name: request-transformer

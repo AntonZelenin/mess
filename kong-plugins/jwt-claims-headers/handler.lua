@@ -56,7 +56,9 @@ function plugin:access(plugin_conf)
     local claims = jwt.claims
     for claim_key, claim_value in pairs(claims) do
         for _, claim_pattern in pairs(plugin_conf.claims_to_include) do
-            if string.match(claim_key, "^" .. claim_pattern .. "$") then
+            --the commented string does not work with hyphens. If you have a key in config like user-id, it won't include it
+            --if string.match(claim_key, "^" .. claim_pattern .. "$") then
+            if claim_key == claim_pattern then
                 req_set_header("X-" .. claim_key, claim_value)
             end
         end
