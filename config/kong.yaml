@@ -30,6 +30,24 @@ services:
 
   - name: login-service
     url: http://auth
+    plugins:
+      - name: cors
+        config:
+          origins:
+            - "http://localhost:8080"
+            - "http://127.0.0.1:8080"
+            - "http://192.168.0.*"
+          methods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - OPTIONS
+          headers:
+            - Authorization
+            - Content-Type
+          credentials: true
+          max_age: 3600
     routes:
       - name: refresh-token
         paths:
@@ -127,5 +145,5 @@ consumers:
 
 jwt_secrets:
   - consumer: login_server
-    secret: ""
-    key: ""
+    secret: "${JWT_SECRET}"
+    key: "${JWT_KEY}"
