@@ -16,6 +16,7 @@ services:
           - /api/user/v1/users/batch-query
         methods:
           - POST
+          - OPTIONS
         strip_path: false
 
   - name: user-service-public
@@ -26,28 +27,11 @@ services:
           - /api/user/v1/users
         methods:
           - POST
+          - OPTIONS
         strip_path: false
 
   - name: login-service
     url: http://auth
-    plugins:
-      - name: cors
-        config:
-          origins:
-            - "http://localhost:8080"
-            - "http://127.0.0.1:8080"
-            - "http://192.168.0.*"
-          methods:
-            - GET
-            - POST
-            - PUT
-            - DELETE
-            - OPTIONS
-          headers:
-            - Authorization
-            - Content-Type
-          credentials: true
-          max_age: 3600
     routes:
       - name: refresh-token
         paths:
@@ -78,6 +62,7 @@ services:
         methods:
           - POST
           - GET
+          - OPTIONS
         strip_path: false
 
   - name: ws-message-service
@@ -92,6 +77,24 @@ services:
           - https
 
 plugins:
+  - name: cors
+    config:
+      origins:
+        - "http://localhost:8080"
+        - "http://127.0.0.1:8080"
+        - "http://192.168.0.*"
+      methods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+      headers:
+        - Authorization
+        - Content-Type
+      credentials: true
+      max_age: 3600
+
   - name: jwt
     service: user-service
     enabled: true
