@@ -52,7 +52,7 @@ services:
       - no-new-privileges
 
   auth:
-    image: mess_auth_service:0.1.0
+    image: mess_auth:0.1.0
     restart: always
     container_name: auth
     hostname: auth
@@ -78,7 +78,7 @@ services:
       - "5433:5432"
 
   user:
-    image: mess_user_service:0.1.0
+    image: mess_user:0.1.0
     restart: always
     container_name: user
     hostname: user
@@ -104,7 +104,7 @@ services:
       - "5434:5432"
 
   message:
-    image: mess_message_service:0.1.0
+    image: mess_message:0.1.0
     restart: always
     container_name: message
     hostname: message
