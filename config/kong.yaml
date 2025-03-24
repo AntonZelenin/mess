@@ -41,6 +41,10 @@ services:
         paths:
           - /api/auth/v1/login
         strip_path: false
+      - name: logout
+        paths:
+          - /api/auth/v1/logout
+        strip_path: false
 
   - name: message-service
     url: http://message
